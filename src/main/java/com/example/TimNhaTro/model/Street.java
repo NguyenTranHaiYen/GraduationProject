@@ -1,6 +1,10 @@
 package com.example.TimNhaTro.model;
 
 import javax.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -11,9 +15,15 @@ public class Street {
     @GeneratedValue(strategy = IDENTITY)
     private Long idStreet;
 
-    private Long districtId;
+    private String name;
 
-    private Long interfaceStreetId;
+    private String prefix;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "streets_has_districts",
+            joinColumns = @JoinColumn(name = "streets_id_street"),
+            inverseJoinColumns = @JoinColumn(name = "districts_id_district"))
+    private Set<District> districts = new HashSet<>();
 
     public Long getIdStreet() {
         return idStreet;
@@ -23,19 +33,27 @@ public class Street {
         this.idStreet = idStreet;
     }
 
-    public Long getDistrictId() {
-        return districtId;
+    public String getName() {
+        return name;
     }
 
-    public void setDistrictId(Long districtId) {
-        this.districtId = districtId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Long getInterfaceStreetId() {
-        return interfaceStreetId;
+    public String getPrefix() {
+        return prefix;
     }
 
-    public void setInterfaceStreetId(Long interfaceStreetId) {
-        this.interfaceStreetId = interfaceStreetId;
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public Set<District> getDistricts() {
+        return districts;
+    }
+
+    public void setDistricts(Set<District> districts) {
+        this.districts = districts;
     }
 }

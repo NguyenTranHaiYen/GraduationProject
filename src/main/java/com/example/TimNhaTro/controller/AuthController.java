@@ -100,7 +100,7 @@ public class AuthController {
         } else {
             strRoles.forEach(role -> {
                         switch (role) {
-                    case "admin":
+                    case "ROLE_ADMIN":
                         Role adminRole = roleService.findByRole(ERole.ROLE_ADMIN.toString())
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);

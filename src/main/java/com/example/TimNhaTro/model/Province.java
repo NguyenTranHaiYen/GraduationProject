@@ -1,9 +1,11 @@
 package com.example.TimNhaTro.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.persistence.*;
+
+import java.util.Collection;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -16,6 +18,13 @@ public class Province {
     private Long idProvince;
 
     private String name;
+
+    // @ManyToMany, @OneToMany default fetch = FetchType.LAZY,
+
+    @OneToMany( mappedBy = "province", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Collection<District> districts;
 
     public Long getIdProvince() {
         return idProvince;

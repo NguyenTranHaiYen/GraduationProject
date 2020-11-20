@@ -1,9 +1,9 @@
 package com.example.TimNhaTro.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -19,7 +19,12 @@ public class District {
 
     private String prefix;
 
-    private Long provinceId;
+    // @ManyToOne, @OneToOne default fetchType : EAGER
+    @ManyToOne
+    @JoinColumn(name = "province_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Province province;
 
     public Long getIdDistrict() {
         return idDistrict;
@@ -45,11 +50,10 @@ public class District {
         this.prefix = prefix;
     }
 
-    public Long getProvinceId() {
-        return provinceId;
+    public Province getProvince() {
+        return province;
     }
-
-    public void setProvinceId(Long provinceId) {
-        this.provinceId = provinceId;
+    public void setProvince(Province province) {
+        this.province = province;
     }
 }
