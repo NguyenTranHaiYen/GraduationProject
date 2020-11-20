@@ -40,6 +40,30 @@ INSERT INTO `category_rooms` VALUES (1,'Thuê Nguyên Phòng'),(2,'Ở Ghép'),(
 UNLOCK TABLES;
 
 --
+-- Table structure for table `provinces`
+--
+
+DROP TABLE IF EXISTS `provinces`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `provinces` (
+  `id_province` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id_province`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `provinces`
+--
+
+LOCK TABLES `provinces` WRITE;
+/*!40000 ALTER TABLE `provinces` DISABLE KEYS */;
+INSERT INTO `provinces` VALUES (1,'Hồ Chí Minh');
+/*!40000 ALTER TABLE `provinces` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `districts`
 --
 
@@ -67,231 +91,6 @@ INSERT INTO `districts` VALUES (1,'Bình Chánh','Huyện',1),(2,'Bình Tân','Q
 /*!40000 ALTER TABLE `districts` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `images`
---
-
-DROP TABLE IF EXISTS `images`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `images` (
-  `id_image` int NOT NULL AUTO_INCREMENT,
-  `image_uuid` varchar(40) DEFAULT NULL,
-  `data` longblob,
-  `file_name` varchar(100) DEFAULT NULL,
-  `file_type` varchar(100) DEFAULT NULL,
-  `room_id` int NOT NULL,
-  PRIMARY KEY (`id_image`,`room_id`),
-  UNIQUE KEY `image_uuid_UNIQUE` (`image_uuid`),
-  KEY `fk_image_room1_idx` (`room_id`),
-  CONSTRAINT `fk_image_room1` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id_room`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `images`
---
-
-LOCK TABLES `images` WRITE;
-/*!40000 ALTER TABLE `images` DISABLE KEYS */;
-/*!40000 ALTER TABLE `images` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `interface_streets`
---
-
-DROP TABLE IF EXISTS `interface_streets`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `interface_streets` (
-  `id_interface_street` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `prefix` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_interface_street`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `interface_streets`
---
-
-LOCK TABLES `interface_streets` WRITE;
-/*!40000 ALTER TABLE `interface_streets` DISABLE KEYS */;
-/*!40000 ALTER TABLE `interface_streets` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `post_saved`
---
-
-DROP TABLE IF EXISTS `post_saved`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `post_saved` (
-  `rooms_id_room` int NOT NULL,
-  `users_id_user` int NOT NULL,
-  PRIMARY KEY (`rooms_id_room`,`users_id_user`),
-  KEY `fk_rooms_has_users_users1_idx` (`users_id_user`),
-  KEY `fk_rooms_has_users_rooms1_idx` (`rooms_id_room`),
-  CONSTRAINT `fk_rooms_has_users_rooms1` FOREIGN KEY (`rooms_id_room`) REFERENCES `rooms` (`id_room`),
-  CONSTRAINT `fk_rooms_has_users_users1` FOREIGN KEY (`users_id_user`) REFERENCES `users` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `post_saved`
---
-
-LOCK TABLES `post_saved` WRITE;
-/*!40000 ALTER TABLE `post_saved` DISABLE KEYS */;
-/*!40000 ALTER TABLE `post_saved` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `provinces`
---
-
-DROP TABLE IF EXISTS `provinces`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `provinces` (
-  `id_province` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id_province`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `provinces`
---
-
-LOCK TABLES `provinces` WRITE;
-/*!40000 ALTER TABLE `provinces` DISABLE KEYS */;
-INSERT INTO `provinces` VALUES (1,'Hồ Chí Minh');
-/*!40000 ALTER TABLE `provinces` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `roles`
---
-
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `roles` (
-  `id_role` int NOT NULL,
-  `role` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_role`),
-  UNIQUE KEY `role_UNIQUE` (`role`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `roles`
---
-
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'ROLE_ADMIN'),(2,'ROLE_USER');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `roles_has_users`
---
-
-DROP TABLE IF EXISTS `roles_has_users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `roles_has_users` (
-  `roles_id_role` int NOT NULL,
-  `users_id_user` int NOT NULL,
-  PRIMARY KEY (`roles_id_role`,`users_id_user`),
-  KEY `fk_roles_has_users_users1_idx` (`users_id_user`),
-  KEY `fk_roles_has_users_roles1_idx` (`roles_id_role`),
-  CONSTRAINT `fk_roles_has_users_roles1` FOREIGN KEY (`roles_id_role`) REFERENCES `roles` (`id_role`),
-  CONSTRAINT `fk_roles_has_users_users1` FOREIGN KEY (`users_id_user`) REFERENCES `users` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `roles_has_users`
---
-
-LOCK TABLES `roles_has_users` WRITE;
-/*!40000 ALTER TABLE `roles_has_users` DISABLE KEYS */;
-INSERT INTO `roles_has_users` VALUES (2,14),(2,15),(2,16),(2,17);
-/*!40000 ALTER TABLE `roles_has_users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `rooms`
---
-
-DROP TABLE IF EXISTS `rooms`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `rooms` (
-  `id_room` int NOT NULL,
-  `acreage` float DEFAULT NULL,
-  `price_room` float DEFAULT NULL,
-  `price_electric` float DEFAULT NULL,
-  `price_water` float DEFAULT NULL,
-  `title` varchar(100) DEFAULT NULL,
-  `description` varchar(500) DEFAULT NULL,
-  `wc` tinyint DEFAULT NULL,
-  `wifi` tinyint DEFAULT NULL,
-  `parking` tinyint DEFAULT NULL,
-  `status_id` int NOT NULL,
-  `category_room_id` int NOT NULL,
-  `streets_id` int unsigned NOT NULL,
-  `users_id` int NOT NULL,
-  `street_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`id_room`,`status_id`,`category_room_id`,`streets_id`,`users_id`),
-  KEY `fk_room_status1_idx` (`status_id`),
-  KEY `fk_room_category_room1_idx` (`category_room_id`),
-  KEY `fk_rooms_streets1_idx` (`streets_id`),
-  KEY `fk_rooms_users1_idx` (`users_id`),
-  CONSTRAINT `fk_room_category_room1` FOREIGN KEY (`category_room_id`) REFERENCES `category_rooms` (`id_category_room`),
-  CONSTRAINT `fk_room_status1` FOREIGN KEY (`status_id`) REFERENCES `status` (`id_status`),
-  CONSTRAINT `fk_rooms_streets1` FOREIGN KEY (`streets_id`) REFERENCES `streets` (`id_street`),
-  CONSTRAINT `fk_rooms_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `rooms`
---
-
-LOCK TABLES `rooms` WRITE;
-/*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
-/*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `status`
---
-
-DROP TABLE IF EXISTS `status`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `status` (
-  `id_status` int NOT NULL,
-  `status` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id_status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `status`
---
-
-LOCK TABLES `status` WRITE;
-/*!40000 ALTER TABLE `status` DISABLE KEYS */;
-INSERT INTO `status` VALUES (1,'Chờ Phê Duyệt'),(2,'Còn Phòng'),(3,'Tin hết hạn');
-/*!40000 ALTER TABLE `status` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `streets`
@@ -346,6 +145,32 @@ INSERT INTO `streets_has_districts` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(
 /*!40000 ALTER TABLE `streets_has_districts` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+--
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `roles` (
+  `id_role` int NOT NULL,
+  `role` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_role`),
+  UNIQUE KEY `role_UNIQUE` (`role`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'ROLE_ADMIN'),(2,'ROLE_USER');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `users`
 --
@@ -363,15 +188,173 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `users`
---
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (14,'Nguyễn Trần Hải Yến','nguyentranhaiyen223@gmail.com','nguyentranhaiyen223','$2a$10$NBm4NB5SirpgZ1HkcGlf3ehC45WO8LjO5TNUxGSqdXtIcSJhQWgO.'),(15,'Nguyễn Trần Hải Âu','nguyentranhaiau@gmail.com','nguyentranhaiau','$2a$10$xodelYfBJNxwLonh2ed3A.RtGeGR0bBIEi5/hWIIQgdNP2FtUzHpu'),(16,'Nguyễn Trần Bá Hoàn','nguyentranbahoan@gmail.com','nguyentranbahoan','$2a$10$wq7GufsOLwEVrslO3B4mc.lxbENzX7r9eosFEyTJu8/r4wCLYJclu'),(17,'Trần Thị Liên','tranthilien@gmail.com','tranthilien','$2a$10$RLfVQDqiFHaHhuovCt832.Nj9LYMc0lMQBOO5ToZ.VIw1A9CiqKw6');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping data for table `users`
+--
+
+--
+-- Table structure for table `roles_has_users`
+--
+
+DROP TABLE IF EXISTS `roles_has_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `roles_has_users` (
+  `roles_id_role` int NOT NULL,
+  `users_id_user` int NOT NULL,
+  PRIMARY KEY (`roles_id_role`,`users_id_user`),
+  KEY `fk_roles_has_users_users1_idx` (`users_id_user`),
+  KEY `fk_roles_has_users_roles1_idx` (`roles_id_role`),
+  CONSTRAINT `fk_roles_has_users_roles1` FOREIGN KEY (`roles_id_role`) REFERENCES `roles` (`id_role`),
+  CONSTRAINT `fk_roles_has_users_users1` FOREIGN KEY (`users_id_user`) REFERENCES `users` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles_has_users`
+--
+
+LOCK TABLES `roles_has_users` WRITE;
+/*!40000 ALTER TABLE `roles_has_users` DISABLE KEYS */;
+INSERT INTO `roles_has_users` VALUES (2,14),(2,15),(2,16),(2,17);
+/*!40000 ALTER TABLE `roles_has_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `images`
+--
+
+DROP TABLE IF EXISTS `status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `status` (
+  `id_status` int NOT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `status`
+--
+
+LOCK TABLES `status` WRITE;
+/*!40000 ALTER TABLE `status` DISABLE KEYS */;
+INSERT INTO `status` VALUES (1,'Chờ Phê Duyệt'),(2,'Còn Phòng'),(3,'Tin hết hạn');
+/*!40000 ALTER TABLE `status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `status`
+--
+
+--
+-- Table structure for table `rooms`
+--
+
+DROP TABLE IF EXISTS `rooms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rooms` (
+  `id_room` int NOT NULL,
+  `acreage` float DEFAULT NULL,
+  `price_room` float DEFAULT NULL,
+  `price_electric` float DEFAULT NULL,
+  `price_water` float DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `wc` tinyint DEFAULT NULL,
+  `wifi` tinyint DEFAULT NULL,
+  `parking` tinyint DEFAULT NULL,
+  `status_id` int NOT NULL,
+  `category_room_id` int NOT NULL,
+  `streets_id` int unsigned NOT NULL,
+  `users_id` int NOT NULL,
+  `street_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id_room`,`status_id`,`category_room_id`,`streets_id`,`users_id`),
+  KEY `fk_room_status1_idx` (`status_id`),
+  KEY `fk_room_category_room1_idx` (`category_room_id`),
+  KEY `fk_rooms_streets1_idx` (`streets_id`),
+  KEY `fk_rooms_users1_idx` (`users_id`),
+  CONSTRAINT `fk_room_category_room1` FOREIGN KEY (`category_room_id`) REFERENCES `category_rooms` (`id_category_room`),
+  CONSTRAINT `fk_room_status1` FOREIGN KEY (`status_id`) REFERENCES `status` (`id_status`),
+  CONSTRAINT `fk_rooms_streets1` FOREIGN KEY (`streets_id`) REFERENCES `streets` (`id_street`),
+  CONSTRAINT `fk_rooms_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rooms`
+--
+
+LOCK TABLES `rooms` WRITE;
+/*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `images` (
+  `id_image` int NOT NULL AUTO_INCREMENT,
+  `image_uuid` varchar(40) DEFAULT NULL,
+  `data` longblob,
+  `file_name` varchar(100) DEFAULT NULL,
+  `file_type` varchar(100) DEFAULT NULL,
+  `room_id` int NOT NULL,
+  PRIMARY KEY (`id_image`,`room_id`),
+  UNIQUE KEY `image_uuid_UNIQUE` (`image_uuid`),
+  KEY `fk_image_room1_idx` (`room_id`),
+  CONSTRAINT `fk_image_room1` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id_room`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `images`
+--
+
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `post_saved`
+--
+
+DROP TABLE IF EXISTS `post_saved`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `post_saved` (
+  `rooms_id_room` int NOT NULL,
+  `users_id_user` int NOT NULL,
+  PRIMARY KEY (`rooms_id_room`,`users_id_user`),
+  KEY `fk_rooms_has_users_users1_idx` (`users_id_user`),
+  KEY `fk_rooms_has_users_rooms1_idx` (`rooms_id_room`),
+  CONSTRAINT `fk_rooms_has_users_rooms1` FOREIGN KEY (`rooms_id_room`) REFERENCES `rooms` (`id_room`),
+  CONSTRAINT `fk_rooms_has_users_users1` FOREIGN KEY (`users_id_user`) REFERENCES `users` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `post_saved`
+--
+
+LOCK TABLES `post_saved` WRITE;
+/*!40000 ALTER TABLE `post_saved` DISABLE KEYS */;
+/*!40000 ALTER TABLE `post_saved` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -382,4 +365,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-20 23:31:24
+-- Dump completed on 2020-11-20 23:56:14
