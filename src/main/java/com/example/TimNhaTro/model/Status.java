@@ -1,9 +1,11 @@
 package com.example.TimNhaTro.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.persistence.*;
+
+import java.util.Collection;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -16,6 +18,11 @@ public class Status {
     private Long idStatus;
 
     private String status;
+
+    @OneToMany( mappedBy = "status", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Collection<Room> rooms;
 
     public Long getIdStatus() {
         return idStatus;
@@ -31,5 +38,13 @@ public class Status {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Collection<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Collection<Room> rooms) {
+        this.rooms = rooms;
     }
 }

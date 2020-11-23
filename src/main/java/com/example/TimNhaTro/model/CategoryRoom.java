@@ -1,9 +1,11 @@
 package com.example.TimNhaTro.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.persistence.*;
+
+import java.util.Collection;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -17,19 +19,8 @@ public class CategoryRoom {
 
     private String category;
 
-    public Long getIdCategoryRoom() {
-        return idCategoryRoom;
-    }
-
-    public void setIdCategoryRoom(Long idCategoryRoom) {
-        this.idCategoryRoom = idCategoryRoom;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    @OneToMany( mappedBy = "categoryRoom", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Collection<Room> rooms;
 }

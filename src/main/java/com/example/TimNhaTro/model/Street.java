@@ -1,7 +1,12 @@
 package com.example.TimNhaTro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.*;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name="streets")
+@JsonIgnoreProperties({ "rooms", "districts"})
 public class Street {
 
     @Id
@@ -24,6 +30,11 @@ public class Street {
             joinColumns = @JoinColumn(name = "streets_id_street"),
             inverseJoinColumns = @JoinColumn(name = "districts_id_district"))
     private Set<District> districts = new HashSet<>();
+
+    @OneToMany( mappedBy = "street", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Collection<Room> rooms;
 
     public Long getIdStreet() {
         return idStreet;
@@ -55,5 +66,13 @@ public class Street {
 
     public void setDistricts(Set<District> districts) {
         this.districts = districts;
+    }
+
+    public Collection<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Collection<Room> rooms) {
+        this.rooms = rooms;
     }
 }

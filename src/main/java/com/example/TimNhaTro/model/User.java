@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,11 +32,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "roles_id_role"))
     private Set<Role> roles = new HashSet<>();
 
-//    @ManyToOne
-//    @JoinColumn(name = "role_id")
-//    @EqualsAndHashCode.Exclude
-//    @ToString.Exclude
-//    private Role role;
+    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Collection<Room> rooms;
 
     public User( String fullname, String email, String username, String pass) {
         this.fullname = fullname;
@@ -95,11 +95,11 @@ public class User {
         this.roles = roles;
     }
 
-//    public Role getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(Role role) {
-//        this.role = role;
-//    }
+    public Collection<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Collection<Room> rooms) {
+        this.rooms = rooms;
+    }
 }

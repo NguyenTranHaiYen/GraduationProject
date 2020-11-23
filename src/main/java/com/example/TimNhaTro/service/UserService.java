@@ -1,6 +1,7 @@
 package com.example.TimNhaTro.service;
 
 import com.example.TimNhaTro.dao.UserDAO;
+import com.example.TimNhaTro.model.Street;
 import com.example.TimNhaTro.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,9 @@ public class UserService {
 
     public User save(User user){
         return userDAO.save(user);
+    }
+
+    public User findByIdUser(Long id){
+        return userDAO.findByIdUser(id);
     }
 }

@@ -1,9 +1,10 @@
 package com.example.TimNhaTro.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.persistence.*;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -22,7 +23,11 @@ public class Image {
 
     private String fileType;
 
-    private Long roomId;
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Room room;
 
     public Long getIdImage() {
         return idImage;
@@ -64,11 +69,11 @@ public class Image {
         this.fileType = fileType;
     }
 
-    public Long getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

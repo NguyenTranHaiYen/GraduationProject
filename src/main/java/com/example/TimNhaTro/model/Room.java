@@ -1,9 +1,12 @@
 package com.example.TimNhaTro.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.persistence.*;
+
+import java.util.Collection;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -27,11 +30,40 @@ public class Room {
 
     private String description;
 
-    private Long statusId;
+    public Boolean wc;
 
-    private Long streetId;
+    public Boolean wifi;
 
-    private Long categoryRoomId;
+    public Boolean parking;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "category_room_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private CategoryRoom categoryRoom;
+
+    @ManyToOne
+    @JoinColumn(name = "streets_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Street street;
+
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private User user;
+
+    @OneToMany( mappedBy = "room", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Collection<Image> images;
 
     public Long getIdRoom() {
         return idRoom;
@@ -89,27 +121,67 @@ public class Room {
         this.description = description;
     }
 
-    public Long getStatusId() {
-        return statusId;
+    public Boolean getWc() {
+        return wc;
     }
 
-    public void setStatusId(Long statusId) {
-        this.statusId = statusId;
+    public void setWc(Boolean wc) {
+        this.wc = wc;
     }
 
-    public Long getStreetId() {
-        return streetId;
+    public Boolean getWifi() {
+        return wifi;
     }
 
-    public void setStreetId(Long streetId) {
-        this.streetId = streetId;
+    public void setWifi(Boolean wifi) {
+        this.wifi = wifi;
     }
 
-    public Long getCategoryRoomId() {
-        return categoryRoomId;
+    public Boolean getParking() {
+        return parking;
     }
 
-    public void setCategoryRoomId(Long categoryRoomId) {
-        this.categoryRoomId = categoryRoomId;
+    public void setParking(Boolean parking) {
+        this.parking = parking;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public CategoryRoom getCategoryRoom() {
+        return categoryRoom;
+    }
+
+    public void setCategoryRoom(CategoryRoom categoryRoom) {
+        this.categoryRoom = categoryRoom;
+    }
+
+    public Street getStreet() {
+        return street;
+    }
+
+    public void setStreet(Street street) {
+        this.street = street;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Collection<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Collection<Image> images) {
+        this.images = images;
     }
 }

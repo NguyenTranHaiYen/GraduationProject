@@ -17,4 +17,7 @@ public class StreetService {
     public List<Street> findByDistricts(District district){
         return streetDAO.findByDistricts(district);
     }
+    public Street findByIdStreet(Long id){
+        return streetDAO.findByIdStreet(id);
+    }
 }

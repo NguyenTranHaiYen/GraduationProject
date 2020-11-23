@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface StreetDAO extends JpaRepository<Street, Long> {
     List<Street> findByDistricts(District district);
+    Street findByIdStreet(Long id);
 }
